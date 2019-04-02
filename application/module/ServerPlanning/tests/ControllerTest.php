@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: georgeenescu
- * Date: 01.04.19
- * Time: 18:41
- */
 
 namespace ServerPlanning;
 
@@ -12,11 +6,6 @@ use PHPUnit\Framework\TestCase;
 
 final class ControllerTest extends TestCase
 {
-
-//Example:
-//- Server type = {CPU: 2, RAM: 32, HDD: 100}
-//    - Virtual Machines = [{CPU: 1, RAM: 16, HDD: 10}, {CPU: 1, RAM: 16, HDD: 10}, {CPU: 2, RAM: 32, HDD: 100}]
-//    - Result = 2
 
     public function testCalculate()
     {
@@ -34,7 +23,6 @@ final class ControllerTest extends TestCase
         $controller->init($server, $virtualMachines)->calculate();
 
         $this->assertEquals(2, $controller->init($server, $virtualMachines)->calculate());
-
 
         $controller = new Controller();
 
