@@ -9,6 +9,7 @@ class ComposerStaticInit1181cab80ef828dc72f3ec47d1090420
     public static $files = array (
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
+        '5f0e95b8df5acf4a92c896dc3ac4bb6e' => __DIR__ . '/..' . '/phpmetrics/phpmetrics/src/functions.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -24,6 +25,10 @@ class ComposerStaticInit1181cab80ef828dc72f3ec47d1090420
         array (
             'Symfony\\Polyfill\\Ctype\\' => 23,
             'ServerPlanning\\' => 15,
+        ),
+        'P' => 
+        array (
+            'PhpParser\\' => 10,
         ),
         'D' => 
         array (
@@ -51,6 +56,10 @@ class ComposerStaticInit1181cab80ef828dc72f3ec47d1090420
         array (
             0 => __DIR__ . '/../..' . '/module/ServerPlanning/src',
         ),
+        'PhpParser\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser',
+        ),
         'Doctrine\\Instantiator\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/instantiator/src/Doctrine/Instantiator',
@@ -67,6 +76,13 @@ class ComposerStaticInit1181cab80ef828dc72f3ec47d1090420
             'Prophecy\\' => 
             array (
                 0 => __DIR__ . '/..' . '/phpspec/prophecy/src',
+            ),
+        ),
+        'H' => 
+        array (
+            'Hal\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/phpmetrics/phpmetrics/src',
             ),
         ),
     );
