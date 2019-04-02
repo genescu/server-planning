@@ -2,12 +2,11 @@
 
 namespace ServerPlanning;
 
-/*- Virtual Machines = [{CPU: 1, RAM: 16, HDD: 10}, {CPU: 1, RAM: 16, HDD: 10}, {CPU: 2, RAM: 32, HDD: 100}]*/
-
 use Exception;
 
 /**
  * Class Hardware
+ * @package ServerPlanning
  */
 class Hardware
 {
@@ -42,25 +41,16 @@ class Hardware
                 $HDD = isset($config[2]) ? $config[2] : null;
                 $this->setHardware($CPU, $RAM, $HDD);
 
-                if ($CPU>=0 && $RAM>=0 && $HDD>=0) {
+                if ($CPU >= 0 && $RAM >= 0 && $HDD >= 0) {
 
                     return $this;
-                }
-
-                else
-                {
+                } else {
                     throw  new Exception("Missing one value from the configuration file ");
 
                 }
-            }
-
-            else
-            {
+            } else {
                 throw  new Exception("Configuration must be an array");
             }
-
-            //   list($CPU, $RAM, $HDD) = $config;
-
 
         } catch (Exception $e) {
             exit($e->getMessage());

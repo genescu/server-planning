@@ -4,10 +4,20 @@ namespace ServerPlanning;
 
 use Exception;
 
+/**
+ * Class Controller
+ * @package ServerPlanning
+ */
 class Controller
 {
+    /**
+     * @var
+     */
     private $server;
 
+    /**
+     * @var
+     */
     private $virtualMachines;
 
     private static $instance;
@@ -32,7 +42,7 @@ class Controller
 
         $serverEntity = new Hardware();
 
-        $server = $serverEntity->setConfig($serverConfig);
+        $serverMachine = $serverEntity->setConfig($serverConfig);
 
         /*set-up virtual machines configuration */
 
@@ -40,22 +50,25 @@ class Controller
 
         $virtualMachineArray = [];
 
-        foreach ($virtualMachineConfig as $cfg) {
-            $machine = $virtualMachineEntity->setConfig($cfg);
+        if (is_array($virtualMachineConfig)) {
 
-            if ($this->isVirtualMachineValid($server, $machine)) {
-                $virtualMachineArray [] = $machine->getHardware();
+            foreach ($virtualMachineConfig as $cfg) {
+
+                $machine = $virtualMachineEntity->setConfig($cfg);
+
+                if ($this->isVirtualMachineValid($serverMachine, $machine)) {
+                    $virtualMachineArray [] = $machine->getHardware();
+                }
+            }
+
+            if ($virtualMachineArray) {
+                $virtualMachineArray = $this->sortArray($virtualMachineArray, array("CPU", "RAM", "HDD"));
             }
         }
 
-        if ($virtualMachineArray) {
-            $virtualMachineArray = $this->sortArray($virtualMachineArray, array("CPU", "RAM", "HDD"));
-        }
-
-
         /*get resources as array*/
 
-        $this->server = $server->getHardware();
+        $this->server = $serverMachine->getHardware();
 
         $this->virtualMachines = $virtualMachineArray;
 
@@ -100,12 +113,11 @@ class Controller
 
             $server = $this->subtract($server, $this->virtualMachines[$i]);
 
-
             if ($server) {
 
-                if ((!array_filter($server))) {
+                if (!array_filter($server)) {
 
-                    //  xdebug("perfect");
+                    /* xdebug("perfect");*/
 
                     $pool[$x] = $this->virtualMachines[$i];
 
@@ -114,20 +126,22 @@ class Controller
                     $server = $this->server;
 
                     $x++;
+
                 } else {
+
                     $pool[$x][] = $this->virtualMachines[$i];
 
                     unset($this->virtualMachines[$i]);
                 }
             } else {
 
-              //  xdebug("try another ...");
+                //  xdebug("try another ...");
 
                 if ($i > count($this->virtualMachines)) {
 
-                // xdebug("not found in all. try new server");
+                    // xdebug("not found in all. try new server");
 
-                // resetting the server
+                    // resetting the server
 
                     $server = $this->server;
 
@@ -169,6 +183,11 @@ class Controller
     }
 
 
+    /**
+     * @param $serverConfig
+     * @param $virtualMachineConfig
+     * @return bool|mixed
+     */
     private function subtract($serverConfig, $virtualMachineConfig)
     {
         $server = new Hardware();
